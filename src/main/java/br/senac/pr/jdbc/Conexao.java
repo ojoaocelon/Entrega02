@@ -19,6 +19,10 @@ public class Conexao {
     private static final String password = lerConfiguracao("DB_PASSWORD", PASSWORD_PADRAO);
 
     public static Connection conectar() throws SQLException {
+        if (password.isBlank()) {
+            throw new SQLException("Senha do PostgreSQL nao configurada. "
+                    + "Defina a variavel de ambiente DB_PASSWORD.");
+        }
         Connection conexao = DriverManager.getConnection(url, user, password);
         return conexao;
     }

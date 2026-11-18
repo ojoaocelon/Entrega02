@@ -17,7 +17,11 @@ public class CmeiDAO {
 
     public void inserir(Cmei cmei) throws SQLException {
         String sql = "INSERT INTO \"Cmei\" (id, \"tenantId\", name, city, region, address, active, \"updatedAt\") "
-                + "VALUES (?,?,?,?,?,?,?, CURRENT_TIMESTAMP)";
+                + "VALUES (?,?,?,?,?,?,?, CURRENT_TIMESTAMP) "
+                + "ON CONFLICT (id) DO UPDATE SET "
+                + "name = EXCLUDED.name, city = EXCLUDED.city, region = EXCLUDED.region, "
+                + "address = EXCLUDED.address, active = EXCLUDED.active, "
+                + "\"updatedAt\" = CURRENT_TIMESTAMP";
         try (Connection conexao = Conexao.conectar();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cmei.getId());
