@@ -1,0 +1,9 @@
+target/
+*.class
+*.zip
+.DS_Store
+.idea/
+*.iml
+.classpath
+.project
+.settings/
